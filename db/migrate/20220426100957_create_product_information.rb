@@ -1,4 +1,4 @@
-class CreateArticles < ActiveRecord::Migration[6.0]
+class CreateProductInformation < ActiveRecord::Migration[6.0]
   def change
     create_table :articles do |t|
 
