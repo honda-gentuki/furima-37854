@@ -1,3 +1,2 @@
-class  ProductInformation < ApplicationRecord
-  
+class ProductInformation < ApplicationRecord
 end
