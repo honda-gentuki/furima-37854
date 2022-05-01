@@ -9,7 +9,7 @@ class OrderAddress
     validates :shipping_area_id
     validates :city
     validates :address
-    validates :phone_number, numericality: { only_integer: true }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'must be at least 10 and no more than 11 single-byte digits' }
     validates :user_id
     validates :item_id
   end
