@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-  before_action :current_item_user, :sold_out
+  before_action :current_item_user, :logout_user
 
   def index
     @order_address = OrderAddress.new
