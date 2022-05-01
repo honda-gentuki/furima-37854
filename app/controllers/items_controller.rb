@@ -60,6 +60,6 @@ class ItemsController < ApplicationController
   end
 
   def not_current_user
-    redirect_to root_path if @item.user_id != current_user.id
+    redirect_to root_path if @item.user_id != current_user.id || @item.order != nil
   end
 end
