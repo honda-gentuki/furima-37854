@@ -14,7 +14,7 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address).to be_valid
       end
 
-      it "建物名が空の場合でも保存できること" do
+      it '建物名が空の場合でも保存できること' do
         @order_address.building = ''
         @order_address.valid?
         expect(@order_address).to be_valid
@@ -31,7 +31,7 @@ RSpec.describe OrderAddress, type: :model do
       it '郵便番号が「3桁ハイフン4桁」の半角文字列でなければ購入できない' do
         @order_address.postal_code = '1111111'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@order_address.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
 
       it '都道府県が空では購入できない' do
@@ -61,10 +61,14 @@ RSpec.describe OrderAddress, type: :model do
       it '電話番号が10桁以上11桁以内の半角数値のみでなければ購入できない' do
         @order_address.phone_number = '123456789'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number must be at least 10 and no more than 11 single-byte digits")
+        expect(@order_address.errors.full_messages).to include('Phone number must be at least 10 and no more than 11 single-byte digits')
       end
 
-
+      it 'token が空では登録できないこと' do
+        @order_address.token = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
