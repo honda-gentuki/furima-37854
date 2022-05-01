@@ -56,14 +56,10 @@ class ItemsController < ApplicationController
   end
 
   def move_to_signed_in
-    unless user_signed_in?
-     redirect_to new_user_session_path
-    end
+    redirect_to new_user_session_path unless user_signed_in?
   end
 
   def not_current_user
-    if @item.user_id != current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.user_id != current_user.id
   end
 end
