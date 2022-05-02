@@ -35,9 +35,9 @@ RSpec.describe OrderAddress, type: :model do
       end
 
       it '都道府県が空では購入できない' do
-        @order_address.shipping_area_id = ''
+        @order_address.shipping_area_id = '1'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Shipping area can't be blank")
+        expect(@order_address.errors.full_messages).to include("Shipping area must be other than 1")
       end
 
       it '市区町村が空では購入できない' do
@@ -58,13 +58,37 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
       end
 
-      it '電話番号が10桁以上11桁以内の半角数値のみでなければ購入できない' do
+      it '電話番号が9桁以下では購入できない' do
         @order_address.phone_number = '123456789'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone number must be at least 10 and no more than 11 single-byte digits')
+        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
       end
 
-      it 'token が空では登録できないこと' do
+      it '電話番号が10桁以上11桁以内の半角数値のみでなければ購入できない' do
+        @order_address.phone_number = '012345678912'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
+      end
+
+      it '電話番号に半角数字以外が含まれている場合は購入できない' do
+        @order_address.phone_number = 'a123456789'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
+      end
+
+      it 'user_idが空では登録できないこと' do
+        @order_address.user_id = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空では登録できないこと' do
+        @order_address.item_id = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Item can't be blank")
+      end
+ 
+      it 'tokenが空では登録できないこと' do
         @order_address.token = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")
